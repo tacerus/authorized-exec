@@ -1,0 +1,29 @@
+=head1 NAME
+
+	authorized-exec - command wrapper
+
+=head1 SYNPOSIS
+
+	authorized-exec <config file> <command line>
+	authorized-exec /etc/authorized-exec/service1.pl -- echo hello
+
+=head1 DESCRIPTION
+
+	This application takes a command line and validates it against a configuration file containing mappings from usernames to authorized commands. This is useful for use as a forced SSH command - option "command" in authorized_keys, sshd(8), or option "ForceCommand" in sshd_config(5) - when multiple commands are intended to be allowed using a single SSH key or multiple services need to access the same user but each only with a specific set of allowed commands.
+
+	It is not intended as a standalone security tool, it should be used in the context of additional restrictions, such as those provided by OpenSSH.
+
+	The command line to validate is taken either from the arguments passed after the configuration file, or read from the variable $SSH_ORIGINAL_COMMAND, which is passed if used as a forced SSH command.
+
+=head1 EXAMPLES
+
+	In authorized_keys, sshd(8), the following syntax can be used:
+		command="/usr/bin/authorized-exec.pod /etc/authorized-exec/service1.pl" ssh-ed25519 ....
+
+=head1 AUTHOR
+
+	Georg Pfuetzenreuter
+
+=head1 LICENSE
+
+	Licensed under the European Union Public Licence.
