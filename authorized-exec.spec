@@ -38,11 +38,13 @@ authorized-exec is a command wrapper for use as a forced SSH command.
 
 %install
 %make_install PREFIX=%{_prefix} MANDIR=%{_mandir} SYSCONFDIR=%{_sysconfdir}
+mv %{buildroot}%{_sysconfdir}/%{name}/config.example .
 
 %files
 %license LICENSE
-%doc README.txt
+%doc config.example README.txt
 %{_bindir}/%{name}
 %{_mandir}/man1/%{name}.1%{?ext_man}
+%dir %{_sysconfdir}/%{name}
 
 %changelog
