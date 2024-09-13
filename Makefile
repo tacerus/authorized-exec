@@ -16,7 +16,7 @@ usage:
 	@echo 'Available targets: "install", "uninstall"'
 
 install:
-	install -d '$(DESTDIR)$(BINDIR)' '$(DESTDIR)$(MANDIR)' '$(DESTDIR)$(SYSCONFDIR)' '$(DESTDIR)$(SYSCONFDIR)/authorized-exec'
+	install -d '$(DESTDIR)$(BINDIR)' '$(DESTDIR)$(MANDIR)/man1' '$(DESTDIR)$(SYSCONFDIR)' '$(DESTDIR)$(SYSCONFDIR)/authorized-exec'
 	install authorized-exec.pl '$(DESTDIR)$(BINDIR)/authorized-exec'
 	install -m 0644 config.example.pl '$(DESTDIR)$(SYSCONFDIR)/authorized-exec/config.example'
 	pod2man authorized-exec.pod > '$(DESTDIR)$(MANDIR)/man1/authorized-exec.1'
