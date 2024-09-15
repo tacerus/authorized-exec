@@ -15,10 +15,12 @@
 
 	The command line to validate is taken either from the arguments passed after the configuration file, or read from the variable $SSH_ORIGINAL_COMMAND, which is passed if used as a forced SSH command.
 
+	The application supports handling different sets of authorized commands for a single user based on the public key the session was initiated with. This utilizes the variable $SSH_USER_AUTH, which requires the OpenSSH server to be configured with "ExposeAuthInfo" enabled in sshd_config(5).
+
 =head1 EXAMPLES
 
 	In authorized_keys, sshd(8), the following syntax can be used:
-		command="/usr/bin/authorized-exec.pod /etc/authorized-exec/service1.pl" ssh-ed25519 ....
+		command="/usr/bin/authorized-exec /etc/authorized-exec/service1.pl" ssh-ed25519 ....
 
 =head1 AUTHOR
 
