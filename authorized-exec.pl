@@ -40,7 +40,7 @@ if ($ssh_cmd) {
 	exit 1
 }
 
-my %cmds = map { qr{$_} => 1 } @{$config{$user}};
+my %cmds = map { qr/^$_$/ => 1 } @{$config{$user}};
 
 if ( any { $cmd =~ $_ } keys %cmds ) {
 	exec $cmd;
