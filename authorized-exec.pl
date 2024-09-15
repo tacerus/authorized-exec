@@ -11,6 +11,7 @@
 use v5.26;	# Leap 15.6
 
 use List::Util 'any';
+use Data::Dumper;
 
 die "Usage: $0 <config> <command line>" unless @ARGV;
 
@@ -19,9 +20,33 @@ my $configfile = shift @ARGV;
 
 my %config = do $configfile;
 	die "Couldn't parse $configfile: $@" if $@;
-	die "Couldn't run $configfile"       unless %config;
+	die "Couldn't run $configfile"			 unless %config;
 
 my $user = $ENV{'USER'};
+my $authfile = $ENV{'SSH_USER_AUTH'};
+
+my %publickeys;
+
+if ($authfile && -f $authfile) {
+	open my $fh, '<', $authfile or die "Found authentication file, but failed to read it: $!";
+	while (<$fh>) {
+		$_ =~ /^publickey (ssh-[a-z0-9]+ .*)$/;
+		$publickeys{$1} = 1;
+	}
+	close $fh or print STDERR "Failed to close authentication file: $!";
+}
+
+foreach my $userentry (keys %config) {
+	my @userelements = split(':', $userentry);
+	my $entry_user = $userelements[0];
+	my $entry_key = $userelements[1];
+	if ($entry_user eq $user && exists($publickeys{$entry_key})) {
+		$user = $userentry;
+		last;
+	}
+}
+
+print(Dumper \%config);
 
 if (! exists($config{$user}) ) {
 	print STDERR 'Unauthorized user.';
