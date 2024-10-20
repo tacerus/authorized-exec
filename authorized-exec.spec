@@ -20,7 +20,7 @@
 Name:           authorized-exec
 Version:        0
 Release:        0
-Summary:        Health check
+Summary:        SSH command handler
 License:        EUPL-1.2
 Group:          System/Monitoring
 URL:            https://git.com.de/Georg/authorized-exec
