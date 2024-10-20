@@ -18,7 +18,7 @@
 
 
 Name:           authorized-exec
-Version:        1.1
+Version:        0
 Release:        0
 Summary:        Health check
 License:        EUPL-1.2
